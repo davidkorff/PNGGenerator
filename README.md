@@ -1,20 +1,22 @@
-#extractor.py
+# extractor.py
+
 This script extracts a JSON object from a URL and saves it to a file named Art.json.
 
 To use this script, you will need to provide the URL as a command-line argument. For example:
 
-'''
+``
 python extractor.py "https://example.com?template={'key':'value'}"
-'''
+``
 
 The JSON object must be passed as the value of the template query parameter in the URL.
 
-#create_png.py
+# create_png.py
+
 This script reads a JSON object from a file named Art.json and generates a PNG image from it. The image will be saved to a file named template.png.
 
 The JSON object is expected to contain a dictionary with the following structure:
 
-'''
+``
 {
   "Template": {
     "MaxTemplate": {
@@ -55,7 +57,7 @@ The JSON object is expected to contain a dictionary with the following structure
     ]
   }
 }
-'''
+``
 
 The `MaxTemplate` object specifies the dimensions of the resulting image. The PersonalizedObjects list contains objects that will be added to the image. Each object can be either an image (specified with the `IMG` `ObjectType`) or text (specified with the `Text` `ObjectType`).
 
