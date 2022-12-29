@@ -16,7 +16,7 @@ This script reads a JSON object from a file named Art.json and generates a PNG i
 
 The JSON object is expected to contain a dictionary with the following structure:
 
-``
+```
 {
   "Template": {
     "MaxTemplate": {
@@ -57,7 +57,7 @@ The JSON object is expected to contain a dictionary with the following structure
     ]
   }
 }
-``
+```
 
 The `MaxTemplate` object specifies the dimensions of the resulting image. The PersonalizedObjects list contains objects that will be added to the image. Each object can be either an image (specified with the `IMG` `ObjectType`) or text (specified with the `Text` `ObjectType`).
 
