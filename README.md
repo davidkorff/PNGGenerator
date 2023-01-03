@@ -14,27 +14,35 @@ The JSON object must be passed as the value of the template query parameter in t
 
 # create_png.py
 
-This script reads a JSON object from a file named Art.json and generates a PNG image from it. The image will be saved to a file named template.png.
+This script reads a JSON object from a file named Art.json and generates a PNG image from it. The image will be saved to a file named Full_Template.png.
 
 The JSON object is expected to contain a dictionary with the following structure:
 
 ```
-{
+
   "Template": {
     "MaxTemplate": {
       "Width": "232.92",
       "Height": "251.92"
     },
+    "MaxDecoArea": {
+      "Width": "232.92",
+      "Height": "101.6",
+      "DecoXOffset": "0",
+      "DecoYOffset": "60"
+    },
     "PersonalizedObjects": [
       {
         "PersonalizedObject": {
           "ObjectType": "IMG",
-          "ObjectContent": { "imageURL": "https://assets.pcna.com/image/upload/v1672267558/POD/MicrosoftTeams-image (38).png" },
+          "ObjectContent": {
+            "imageURL": "https://assets.pcna.com/image/upload/v1672351495/POD/L407182_4x4_DIP.png"
+          },
           "ObjectLocation": {
-            "ObjectWidth": "232.92",
-            "ObjectHeight": "101",
-            "ObjectXOffset": "0",
-            "ObjectYOffset": "60"
+            "ObjectWidth": "",
+            "ObjectHeight": "",
+            "ObjectXOffset": "25%",
+            "ObjectYOffset": "50%"
           }
         }
       },
@@ -42,24 +50,28 @@ The JSON object is expected to contain a dictionary with the following structure
         "PersonalizedObject": {
           "ObjectType": "Text",
           "ObjectContent": {
-            "Text": "",
-            "FontSize": "36",
-            "FontColor": "000000"
+            "Text": "David",
+            "FontSize": "40",
+            "FontColor": "000000",
+            "Font": "arial.ttf"
           },
           "ObjectLocation": {
-            "ObjectWidth": "232.92",
-            "ObjectHeight": "101",
-            "ObjectXOffset": "0",
-            "ObjectYOffset": "60"
+            "ObjectWidth": "0",
+            "ObjectHeight": "0",
+            "ObjectXOffset": "75%",
+            "ObjectYOffset": "75%"
           }
         }
       }
     ]
   }
 }
+
 ```
 
-The `MaxTemplate` object specifies the dimensions of the resulting image. The PersonalizedObjects list contains objects that will be added to the image. Each object can be either an image (specified with the `IMG` `ObjectType`) or text (specified with the `Text` `ObjectType`).
+The `MaxDecoArea` object specifies the dimensions of the resulting image. The PersonalizedObjects list contains objects that will be added to the image. Each object can be either an image (specified with the `IMG` `ObjectType`) or text (specified with the `Text` `ObjectType`).
+
+The `MaxTemplate` object specifies the dimensions of the resulting 'Full_Temaplate"". The `DecoArea.png` will be pasted on this the full template, using the offsets in the object.
 
 The `ObjectContent` object for an image object should contain an `imageURL` field with the URL of the image to be added to the image.
 
