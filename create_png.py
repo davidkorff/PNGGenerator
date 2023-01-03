@@ -11,12 +11,12 @@ with open('Art.json') as f:
 
 
 
-# Get the dimensions of the template image from the "MaxTemplate" object
-template_width = int(float(data['Template']['MaxTemplate']['Width'])/pxToMillConv)
-template_height = int(float(data['Template']['MaxTemplate']['Height'])/pxToMillConv)
+# Get the dimensions of the template image from the "MaxDecoArea" object
+deco_width = int(float(data['Template']['MaxDecoArea']['Width'])/pxToMillConv)
+deco_height = int(float(data['Template']['MaxDecoArea']['Height'])/pxToMillConv)
 
 # Create a new image with the specified dimensions and a transparent background
-template_image = Image.new(mode='RGBA', size=(template_width, template_height), color = (255, 255, 255, 0))
+template_image = Image.new(mode='RGBA', size=(deco_width, deco_height), color = (255, 255, 255, 0))
 
 # Create a drawing context for the image
 draw = ImageDraw.Draw(template_image)
@@ -47,10 +47,10 @@ for personalized_object in data['Template']['PersonalizedObjects']:
 
         if 'ObjectWidth' in obj_location:
             if '%' in obj_location['ObjectWidth']:
-                obj_width = int(float(obj_location['ObjectWidth'].strip('%'))/100 * template_width)
+                obj_width = int(float(obj_location['ObjectWidth'].strip('%'))/100 * deco_width)
                 if 'ObjectHeight' in obj_location:
                     if '%' in obj_location['ObjectHeight']:
-                        obj_height = int((float(obj_location['ObjectHeight'].strip('%')))/100 * template_height)
+                        obj_height = int((float(obj_location['ObjectHeight'].strip('%')))/100 * deco_height)
                     elif str(obj_location['ObjectHeight']).digit():
                         obj_height = int(float(obj_location['ObjectHeight'])/pxToMillConv)
                     else:
@@ -61,7 +61,7 @@ for personalized_object in data['Template']['PersonalizedObjects']:
                 obj_width = int(float(obj_location['ObjectWidth'])/pxToMillConv)
                 if 'ObjectHeight' in obj_location:
                     if '%' in obj_location['ObjectHeight']:
-                        obj_height = int((float(obj_location['Objectheight'].strip('%')))/100 * template_height)
+                        obj_height = int((float(obj_location['Objectheight'].strip('%')))/100 * deco_height)
                     elif str(obj_location['ObjectHeight']).isdigit():
                         obj_height = int(float(obj_location['ObjectHeight'])/pxToMillConv)
                     else:
@@ -70,14 +70,14 @@ for personalized_object in data['Template']['PersonalizedObjects']:
                 obj_width = int(width)
                 if 'ObjectHeight' in obj_location:
                     if '%' in obj_location['ObjectHeight']:
-                        obj_height = int(float(obj_location['Objectheight'].strip('%'))/100 * template_height)
+                        obj_height = int(float(obj_location['Objectheight'].strip('%'))/100 * deco_height)
                     elif str(obj_location['ObjectHeight']).isdigit():
                         obj_height = int(float(obj_location['ObjectHeight'])/pxToMillConv)
                     else:
                         obj_height = int(height)
         elif 'ObjectHeight' in obj_location:
             if '%' in obj_location['ObjectHeight']:
-                obj_height = int(float(obj_location['ObjectHeight'].strip('%'))/100 * template_height)
+                obj_height = int(float(obj_location['ObjectHeight'].strip('%'))/100 * deco_height)
             elif str(obj_location['ObjectHeight']).isdigit():
                 obj_height = int(float(obj_location['ObjectHeight'])/pxToMillConv)
             else:
@@ -97,7 +97,7 @@ for personalized_object in data['Template']['PersonalizedObjects']:
 
         if 'ObjectXOffset' in obj_location:
             if '%' in obj_location['ObjectXOffset']:
-                obj_x_offset = int((float((obj_location['ObjectXOffset'].strip('%')))/100 * template_width)-(obj_width/2))
+                obj_x_offset = int((float((obj_location['ObjectXOffset'].strip('%')))/100 * deco_width)-(obj_width/2))
             elif str(obj_location['ObjectXOffset']).isdigit():
                 obj_x_offset = int(float(obj_location['ObjectXOffset'])/pxToMillConv)
             else:
@@ -106,7 +106,7 @@ for personalized_object in data['Template']['PersonalizedObjects']:
             obj_x_offset = 0
         if 'ObjectYOffset' in obj_location:
             if '%' in obj_location['ObjectYOffset']:
-                obj_y_offset = int((float((obj_location['ObjectYOffset'].strip('%')))/100 * template_height)-(obj_height/2))
+                obj_y_offset = int((float((obj_location['ObjectYOffset'].strip('%')))/100 * deco_height)-(obj_height/2))
             elif str(obj_location['ObjectYOffset']).isdigit():
                 obj_y_offset = int(float(obj_location['ObjectYOffset'])/pxToMillConv)
             else:
@@ -156,7 +156,7 @@ for personalized_object in data['Template']['PersonalizedObjects']:
 
         if 'ObjectXOffset' in obj_location:
             if '%' in obj_location['ObjectXOffset']:
-                obj_x_offset = int((float((obj_location['ObjectXOffset'].strip('%')))/100 * template_width)-(text_width/2))
+                obj_x_offset = int((float((obj_location['ObjectXOffset'].strip('%')))/100 * deco_width)-(text_width/2))
             elif str(obj_location['ObjectXOffset']).isdigit():
                 obj_x_offset = int(float(obj_location['ObjectXOffset'])/pxToMillConv)
             else:
@@ -165,7 +165,7 @@ for personalized_object in data['Template']['PersonalizedObjects']:
             obj_x_offset = 0
         if 'ObjectYOffset' in obj_location:
             if '%' in obj_location['ObjectYOffset']:
-                obj_y_offset = int((float((obj_location['ObjectYOffset'].strip('%')))/100 * template_height)-(min_char_height/2))
+                obj_y_offset = int((float((obj_location['ObjectYOffset'].strip('%')))/100 * deco_height)-(min_char_height/2))
             elif str(obj_location['ObjectYOffset']).isdigit():
                 obj_y_offset = int(float(obj_location['ObjectYOffset'])/pxToMillConv)
             else:
@@ -183,6 +183,25 @@ for personalized_object in data['Template']['PersonalizedObjects']:
 
 
 # Save the image as a PNG file
-template_image.save('template.png', dpi=(300, 300))
+template_image.save('DecoArea.png', dpi=(300, 300))
 
+
+
+template_width = int(float(data['Template']['MaxTemplate']['Width'])/pxToMillConv)
+template_height = int(float(data['Template']['MaxTemplate']['Height'])/pxToMillConv)
+
+deco_x_offset = int(float(data['Template']['MaxDecoArea']['DecoXOffset'])/pxToMillConv)
+deco_y_offset = int(float(data['Template']['MaxDecoArea']['DecoYOffset'])/pxToMillConv)
+
+
+# Create a new image with the specified dimensions and a transparent background
+full_template = Image.new(mode='RGBA', size=(template_width, template_height), color = (255, 255, 255, 0))
+
+# Create a drawing context for the image
+draw2 = ImageDraw.Draw(full_template)
+
+# Paste the image onto the template image at the specified location
+full_template.paste(template_image, (deco_x_offset, deco_y_offset, deco_x_offset + deco_width, deco_y_offset + deco_height))
+
+full_template.save('Full_Template.png', dpi=(300, 300))
 

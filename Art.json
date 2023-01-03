@@ -4,12 +4,18 @@
       "Width": "232.92",
       "Height": "251.92"
     },
+    "MaxDecoArea": {
+      "Width": "232.92",
+      "Height": "101.6",
+      "DecoXOffset": "0",
+      "DecoYOffset": "60"
+    },
     "PersonalizedObjects": [
       {
         "PersonalizedObject": {
           "ObjectType": "IMG",
           "ObjectContent": {
-             "imageURL": "https://assets.pcna.com/image/upload/v1672351495/POD/L407182_4x4_DIP.png"
+            "imageURL": "https://assets.pcna.com/image/upload/v1672351495/POD/L407182_4x4_DIP.png"
           },
           "ObjectLocation": {
             "ObjectWidth": "",
