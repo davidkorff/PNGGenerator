@@ -128,18 +128,59 @@ for personalized_object in data['Template']['PersonalizedObjects']:
         # Get the object dimensions
         obj_width = int(float(obj_location['ObjectWidth'])/pxToMillConv)
         obj_height = int(float(obj_location['ObjectHeight'])/pxToMillConv)
-        obj_x_offset = int(float(obj_location['ObjectXOffset'])/pxToMillConv)
-        obj_y_offset = int(float(obj_location['ObjectYOffset'])/pxToMillConv)
+        # obj_x_offset = int(float(obj_location['ObjectXOffset'])/pxToMillConv)
+        # obj_y_offset = int(float(obj_location['ObjectYOffset'])/pxToMillConv)
 
         # Load the TTF font file
-        font_path = 'arial.ttf'
-        font = ImageFont.truetype(font_path, int(float(obj_content['FontSize'])))
+        font_path = obj_content['Font']
+        font = ImageFont.truetype(font_path, int(float(obj_content['FontSize'])/pxToMillConv))
 
         # Get the font color
         font_color = tuple(int(obj_content['FontColor'][i:i+2], 16) for i in (0, 2, 4))
 
+        text_width, text_height = font.getsize(obj_content['Text'])
+        print(text_width)
+        print(text_height)
+
+        # Get the height of the smallest character in the text
+        text = obj_content['Text']
+        char_heights = []
+        for char in text:
+            char_width, char_height = font.getsize(char)
+            char_heights.append(char_height)
+            print(f'The height of the {char} character is {char_height} pixels.')
+        min_char_height = min(char_heights)
+
+        print(f'The height of the smallest character is {min_char_height} pixels.')
+
+
+        if 'ObjectXOffset' in obj_location:
+            if '%' in obj_location['ObjectXOffset']:
+                obj_x_offset = int((float((obj_location['ObjectXOffset'].strip('%')))/100 * template_width)-(text_width/2))
+            elif str(obj_location['ObjectXOffset']).isdigit():
+                obj_x_offset = int(float(obj_location['ObjectXOffset'])/pxToMillConv)
+            else:
+                obj_x_offset = 0
+        else:
+            obj_x_offset = 0
+        if 'ObjectYOffset' in obj_location:
+            if '%' in obj_location['ObjectYOffset']:
+                obj_y_offset = int((float((obj_location['ObjectYOffset'].strip('%')))/100 * template_height)-(min_char_height/2))
+            elif str(obj_location['ObjectYOffset']).isdigit():
+                obj_y_offset = int(float(obj_location['ObjectYOffset'])/pxToMillConv)
+            else:
+                obj_y_offset = 0
+        else:
+            obj_y_offset = 0
+
         # Draw the text onto the image
         draw.text((obj_x_offset, obj_y_offset), obj_content['Text'], fill=font_color, font=font)
+        print("_")
+        print(obj_x_offset*pxToMillConv)
+        print(obj_y_offset*pxToMillConv)
+
+       
+
 
 # Save the image as a PNG file
 template_image.save('template.png', dpi=(300, 300))
